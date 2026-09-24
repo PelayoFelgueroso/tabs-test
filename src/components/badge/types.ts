@@ -1,8 +1,10 @@
+type BadgeVariant = "neutral" | "positive" | "negative";
+
 interface BadgeProps {
   /** The text to display inside the badge */
   label: string;
   /** The variant style of the badge */
-  variant?: "neutral" | "positive" | "negative";
+  variant?: BadgeVariant;
 }
 
 export default BadgeProps;
