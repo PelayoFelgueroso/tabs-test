@@ -5,6 +5,7 @@
   line-height: var(--font-height-body-s);
   padding: var(--spacing-4xs) var(--spacing-3xs);
   border-radius: var(--border-radius-s);
+  color: var(--color-on-neutral);
 
   @media (min-width: 768px) {
     font-size: var(--font-size-body-m);
