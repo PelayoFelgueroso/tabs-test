@@ -1,0 +1,123 @@
+/* Single Tab component styles */
+
+.tab {
+  position: relative;
+  height: var(--height-m);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-0);
+  border: 0;
+  background-color: transparent;
+  color: var(--color-on-neutral);
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    height: var(--height-l);
+  }
+
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    outline: 2px solid var(--color-inverse);
+    outline-offset: var(--spacing-4xs);
+  }
+}
+
+.label {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-height-body-s);
+  white-space: nowrap;
+}
+
+.tab.pill {
+  padding-inline: var(--spacing-xs);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-outline);
+
+  @media (min-width: 768px) {
+    padding-inline: var(--spacing-s);
+  }
+
+  &:hover {
+    background-color: var(--color-surface-hover);
+  }
+
+  &:active {
+    background-color: var(--color-surface-active);
+  }
+}
+.tab.pill.selected {
+  background-color: var(--color-inverse);
+  color: var(--color-on-inverse);
+  &:hover {
+    background-color: var(--color-inverse-hover);
+  }
+
+  &:active {
+    background-color: var(--color-inverse-active);
+  }
+}
+
+.tab.underline {
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    border-radius: var(--border-radius-2xs);
+  }
+}
+
+.line {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-outline-hover);
+
+  .tab:hover &,
+  .tab:active &,
+  .tab:focus &,
+  .tab:focus-visible &,
+  .tab:focus-within & {
+    height: 3px;
+  }
+}
+.line.selected {
+  height: 3px;
+  background-color: var(--color-inverse);
+}
+
+/* Tabs component styles */
+
+.tabsContainer {
+  display: flex;
+  gap: var(--spacing-2xs);
+  overflow-x: auto;
+  overflow-y: visible;
+  flex-wrap: nowrap;
+  padding: var(--spacing-3xs);
+
+  @media (min-width: 768px) {
+    gap: var(--spacing-xs);
+  }
+
+  scrollbar-width: none;
+  scrollbar-color: var(--color-outline) transparent;
+
+  @media (min-width: 768px) {
+    scrollbar-width: thin;
+  }
+}
+
+.tabsContainer.underline {
+  gap: var(--spacing-l);
+
+  @media (min-width: 768px) {
+    gap: var(--spacing-xl);
+  }
+}
