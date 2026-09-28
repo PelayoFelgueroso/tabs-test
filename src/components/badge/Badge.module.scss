@@ -1,26 +1,30 @@
+@import "/src/styles/variables";
+
 .badge {
   font-family: var(--font-family-body);
-  font-size: var(--font-size-body-s);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--font-height-body-s);
-  padding: var(--spacing-4xs) var(--spacing-3xs);
-  border-radius: var(--border-radius-s);
-  color: var(--color-on-neutral);
+  font-size: var(--font-size-sm);
+  font-weight: var(--badge-font-weight);
+  line-height: var(--line-height-tight);
+  padding: var(--badge-padding-block-mobile) var(--badge-padding-inline-mobile);
+  border-radius: var(--badge-border-radius-mobile);
+  color: var(--badge-text-color);
 
-  @media (min-width: 768px) {
-    font-size: var(--font-size-body-m);
-    line-height: var(--font-height-body-m);
-    padding: var(--spacing-3xs) var(--spacing-2xs);
-    border-radius: var(--border-radius-m);
+  @include media-desktop {
+    font-size: var(--font-size-md);
+    padding: var(--badge-padding-block-desktop)
+      var(--badge-padding-inline-desktop);
+    border-radius: var(--badge-border-radius-desktop);
   }
 }
 
 .neutral {
-  background-color: var(--color-neutral);
+  background-color: var(--badge-bg-neutral);
 }
+
 .positive {
-  background-color: var(--color-positive);
+  background-color: var(--badge-bg-success);
 }
+
 .negative {
-  background-color: var(--color-negative);
+  background-color: var(--badge-bg-error);
 }

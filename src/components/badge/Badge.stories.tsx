@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Badge from "./Badge";
-import ExampleContainer from "../../../.storybook/components/example-container/ExampleContainer";
 
 const meta = {
   title: "Components/Badge",
@@ -48,21 +47,21 @@ export const Negative: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <ExampleContainer>
+    <>
       <Badge label="Default" />
       <Badge label="Positive" variant="positive" />
       <Badge label="Negative" variant="negative" />
-    </ExampleContainer>
+    </>
   ),
 };
 
 export const Mobile: Story = {
   render: () => (
-    <ExampleContainer>
+    <>
       <Badge label="Default" />
       <Badge label="Positive" variant="positive" />
       <Badge label="Negative" variant="negative" />
-    </ExampleContainer>
+    </>
   ),
   globals: {
     viewport: { value: "iphonex", isRotated: false },
