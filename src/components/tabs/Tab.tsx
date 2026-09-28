@@ -7,7 +7,7 @@ import type { TabProps } from "./types";
 function Tab({ badge, disabled, label, value }: TabProps) {
   const { activeTab, setActiveTab, variant } = useTabsContext();
   const tabValue = getTabValue({ value, label });
-  const isSelected = activeTab === tabValue;
+  const isSelected = activeTab.toLowerCase() === tabValue.toLowerCase();
 
   const handleClick = () => {
     if (disabled) return;

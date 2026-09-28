@@ -71,7 +71,12 @@ function Tabs({
         e.preventDefault();
         break;
       case "Tab": {
-        const tabpanel = document.getElementById(getPanelId(activeTab));
+        const activeTabValue = tabChildren
+          .map((child) => getTabValue(child.props))
+          .find((v) => v.toLowerCase() === activeTab.toLowerCase());
+        const tabpanel = document.getElementById(
+          getPanelId(activeTabValue ?? activeTab),
+        );
         if (tabpanel) {
           e.preventDefault();
           tabpanel.focus();
@@ -108,7 +113,7 @@ function Tabs({
       {tabChildren.map((child) => {
         if (!child.props.children) return null;
         const tabValue = getTabValue(child.props);
-        const isActive = activeTab === tabValue;
+        const isActive = activeTab.toLowerCase() === tabValue.toLowerCase();
         if (!isActive) return null;
         return (
           <div
