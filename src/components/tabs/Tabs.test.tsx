@@ -29,59 +29,31 @@ describe("Tabs component tests", () => {
       expect(screen.getByRole("tab", { name: "Tab 3" })).toBeInTheDocument();
     });
 
-    it("applies tabsContainer styling", () => {
-      const { container } = render(
+  });
+
+  describe("Variants", () => {
+    it("renders with pill variant (default)", () => {
+      render(
         <Tabs>
-          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 1">Content</Tabs.Tab>
         </Tabs>
       );
 
       const tablist = screen.getByRole("tablist");
       expect(tablist).toBeInTheDocument();
-      expect(container.querySelector("[role='tablist']")).toHaveAttribute("class");
-    });
-  });
-
-  describe("Variants", () => {
-    it("applies pill variant by default", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-        </Tabs>
-      );
-
-      expect(screen.getByRole("tablist")).toBeInTheDocument();
+      expect(tablist.className).toContain("pill");
     });
 
-    it("applies pill variant when specified", () => {
-      render(
-        <Tabs variant="pill">
-          <Tabs.Tab label="Tab 1" />
-        </Tabs>
-      );
-
-      expect(screen.getByRole("tablist")).toBeInTheDocument();
-    });
-
-    it("applies underline variant when specified", () => {
+    it("renders with underline variant", () => {
       render(
         <Tabs variant="underline">
-          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 1">Content</Tabs.Tab>
         </Tabs>
       );
 
-      expect(screen.getByRole("tablist")).toBeInTheDocument();
-    });
-
-    it("applies variant class to tab buttons", () => {
-      render(
-        <Tabs variant="pill">
-          <Tabs.Tab label="Tab 1" />
-        </Tabs>
-      );
-
-      const tab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(tab).toBeInTheDocument();
+      const tablist = screen.getByRole("tablist");
+      expect(tablist).toBeInTheDocument();
+      expect(tablist.className).toContain("underline");
     });
   });
 
@@ -130,34 +102,6 @@ describe("Tabs component tests", () => {
       expect(tab2).toHaveAttribute("aria-selected", "true");
     });
 
-    it("applies selected class to active tab", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-          <Tabs.Tab label="Tab 2" />
-        </Tabs>
-      );
-
-      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-      fireEvent.click(tab2);
-
-      expect(tab2).toHaveAttribute("aria-selected", "true");
-    });
-
-    it("removes selected class from previously active tab", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-          <Tabs.Tab label="Tab 2" />
-        </Tabs>
-      );
-
-      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-      fireEvent.click(tab2);
-      expect(tab1).toHaveAttribute("aria-selected", "false");
-    });
   });
 
   describe("Tab Values", () => {
@@ -255,39 +199,7 @@ describe("Tabs component tests", () => {
   });
 
   describe("ARIA Attributes", () => {
-    it("renders tab with role='tab'", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-        </Tabs>
-      );
-
-      expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveAttribute("role", "tab");
-    });
-
-    it("renders with aria-selected attribute", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-        </Tabs>
-      );
-
-      const tab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(tab).toHaveAttribute("aria-selected");
-    });
-
     it("aria-selected is true for active tab", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-        </Tabs>
-      );
-
-      const tab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(tab).toHaveAttribute("aria-selected", "true");
-    });
-
-    it("aria-selected is false for inactive tabs", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1" />
@@ -295,18 +207,10 @@ describe("Tabs component tests", () => {
         </Tabs>
       );
 
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
       const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+      expect(tab1).toHaveAttribute("aria-selected", "true");
       expect(tab2).toHaveAttribute("aria-selected", "false");
-    });
-
-    it("renders tablist container with role='tablist'", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-        </Tabs>
-      );
-
-      expect(screen.getByRole("tablist")).toBeInTheDocument();
     });
   });
 
@@ -366,32 +270,6 @@ describe("Tabs component tests", () => {
     });
   });
 
-  describe("Multiple Tabs Selection", () => {
-    it("only one tab is selected at a time", () => {
-      render(
-        <Tabs>
-          <Tabs.Tab label="Tab 1" />
-          <Tabs.Tab label="Tab 2" />
-          <Tabs.Tab label="Tab 3" />
-        </Tabs>
-      );
-
-      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-      const tab3 = screen.getByRole("tab", { name: "Tab 3" });
-
-      expect(tab1).toHaveAttribute("aria-selected", "true");
-      expect(tab2).toHaveAttribute("aria-selected", "false");
-      expect(tab3).toHaveAttribute("aria-selected", "false");
-
-      fireEvent.click(tab2);
-
-      expect(tab1).toHaveAttribute("aria-selected", "false");
-      expect(tab2).toHaveAttribute("aria-selected", "true");
-      expect(tab3).toHaveAttribute("aria-selected", "false");
-    });
-  });
-
   describe("Tab Content (Panel)", () => {
     it("renders tabpanel with role when children provided", () => {
       render(
@@ -422,7 +300,7 @@ describe("Tabs component tests", () => {
       );
 
       expect(screen.getByText("Content for Tab 1")).toBeInTheDocument();
-      expect(screen.getByText("Content for Tab 2")).toBeInTheDocument();
+      expect(screen.queryByText("Content for Tab 2")).not.toBeInTheDocument();
     });
 
     it("hides tabpanel content when tab is not active", () => {
@@ -437,11 +315,8 @@ describe("Tabs component tests", () => {
         </Tabs>
       );
 
-      const panel1 = screen.getByText("Content 1").closest("[role='tabpanel']");
-      const panel2 = screen.getByText("Content 2").closest("[role='tabpanel']");
-
-      expect(panel1).toHaveAttribute("hidden");
-      expect(panel2).not.toHaveAttribute("hidden");
+      expect(screen.getByText("Content 2")).toBeInTheDocument();
+      expect(screen.queryByText("Content 1")).not.toBeInTheDocument();
     });
 
     it("shows/hides tabpanel when switching tabs", () => {
@@ -452,17 +327,14 @@ describe("Tabs component tests", () => {
         </Tabs>
       );
 
+      expect(screen.getByText("Content 1")).toBeInTheDocument();
+      expect(screen.queryByText("Content 2")).not.toBeInTheDocument();
+
       const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-      const panel1 = screen.getByText("Content 1").closest("[role='tabpanel']");
-      const panel2 = screen.getByText("Content 2").closest("[role='tabpanel']");
-
-      expect(panel1).not.toHaveAttribute("hidden");
-      expect(panel2).toHaveAttribute("hidden");
-
       fireEvent.click(tab2);
 
-      expect(panel1).toHaveAttribute("hidden");
-      expect(panel2).not.toHaveAttribute("hidden");
+      expect(screen.queryByText("Content 1")).not.toBeInTheDocument();
+      expect(screen.getByText("Content 2")).toBeInTheDocument();
     });
 
     it("links tab with tabpanel using aria-labelledby and aria-controls", () => {
@@ -499,6 +371,283 @@ describe("Tabs component tests", () => {
       expect(screen.getByText("Title")).toBeInTheDocument();
       expect(screen.getByText("Complex content")).toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Action Button" })).toBeInTheDocument();
+    });
+  });
+
+  describe("Disabled State", () => {
+    it("disabled tab does not change active tab on click", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" disabled />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      fireEvent.click(tab2);
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      expect(tab2).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("disabled tabs have disabled attribute", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" disabled />
+        </Tabs>
+      );
+
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+      expect(tab2).toHaveAttribute("disabled");
+    });
+
+    it("disabled tabs have aria-disabled attribute", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" disabled />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+      expect(tab2).toHaveAttribute("aria-disabled", "true");
+      expect(tab1).not.toHaveAttribute("aria-disabled");
+    });
+  });
+
+  describe("Keyboard Navigation", () => {
+    it("ArrowRight moves focus to next tab (roving tabindex)", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      tab1.focus();
+
+      fireEvent.keyDown(tab1, { key: "ArrowRight" });
+
+      expect(tab2).toHaveFocus();
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      expect(tab2).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("ArrowLeft moves focus to previous tab (roving tabindex)", () => {
+      render(
+        <Tabs defaultValue="Tab 2">
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab value="Tab 2" label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+      expect(tab2).toHaveAttribute("aria-selected", "true");
+      tab2.focus();
+
+      fireEvent.keyDown(tab2, { key: "ArrowLeft" });
+
+      expect(tab1).toHaveFocus();
+      expect(tab2).toHaveAttribute("aria-selected", "true");
+      expect(tab1).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("Home moves focus to first tab (roving tabindex)", () => {
+      render(
+        <Tabs defaultValue="Tab 2">
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab value="Tab 2" label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+      expect(tab2).toHaveAttribute("aria-selected", "true");
+      tab2.focus();
+
+      fireEvent.keyDown(tab2, { key: "Home" });
+
+      expect(tab1).toHaveFocus();
+      expect(tab2).toHaveAttribute("aria-selected", "true");
+      expect(tab1).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("End moves focus to last tab (roving tabindex)", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab3 = screen.getByRole("tab", { name: "Tab 3" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      tab1.focus();
+
+      fireEvent.keyDown(tab1, { key: "End" });
+
+      expect(tab3).toHaveFocus();
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      expect(tab3).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("disabled tabs are skipped in keyboard navigation", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" disabled />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab3 = screen.getByRole("tab", { name: "Tab 3" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      tab1.focus();
+
+      fireEvent.keyDown(tab1, { key: "ArrowRight" });
+
+      expect(tab3).toHaveFocus();
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      expect(tab3).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("ArrowRight wraps focus around to first tab", () => {
+      render(
+        <Tabs defaultValue="Tab 3">
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" />
+          <Tabs.Tab value="Tab 3" label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab3 = screen.getByRole("tab", { name: "Tab 3" });
+
+      expect(tab3).toHaveAttribute("aria-selected", "true");
+      tab3.focus();
+
+      fireEvent.keyDown(tab3, { key: "ArrowRight" });
+
+      expect(tab1).toHaveFocus();
+      expect(tab3).toHaveAttribute("aria-selected", "true");
+      expect(tab1).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("ArrowLeft wraps focus around to last tab", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab3 = screen.getByRole("tab", { name: "Tab 3" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      tab1.focus();
+
+      fireEvent.keyDown(tab1, { key: "ArrowLeft" });
+
+      expect(tab3).toHaveFocus();
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      expect(tab3).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("Enter activates focused tab", () => {
+      render(
+        <Tabs defaultValue="Tab 1">
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      tab2.focus();
+
+      fireEvent.keyDown(tab2, { key: "Enter" });
+
+      expect(tab2).toHaveAttribute("aria-selected", "true");
+      expect(tab1).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("Space activates focused tab", () => {
+      render(
+        <Tabs defaultValue="Tab 1">
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      tab2.focus();
+
+      fireEvent.keyDown(tab2, { key: " " });
+
+      expect(tab2).toHaveAttribute("aria-selected", "true");
+      expect(tab1).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("Enter is ignored on disabled tabs", () => {
+      render(
+        <Tabs defaultValue="Tab 1">
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" disabled />
+        </Tabs>
+      );
+
+      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      tab2.focus();
+
+      fireEvent.keyDown(tab2, { key: "Enter" });
+
+      expect(tab1).toHaveAttribute("aria-selected", "true");
+      expect(tab2).toHaveAttribute("aria-selected", "false");
+    });
+  });
+
+  describe("Edge Cases", () => {
+    it("single tab component renders and works", () => {
+      render(
+        <Tabs>
+          <Tabs.Tab label="Only Tab">Content</Tabs.Tab>
+        </Tabs>
+      );
+
+      const tab = screen.getByRole("tab", { name: "Only Tab" });
+      expect(tab).toHaveAttribute("aria-selected", "true");
+      expect(screen.getByText("Content")).toBeInTheDocument();
     });
   });
 });

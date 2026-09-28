@@ -1,4 +1,4 @@
-@use "./tokens";
+@use "variables" as *;
 
 body {
   background-color: var(--color-background);

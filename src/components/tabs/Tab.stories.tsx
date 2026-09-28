@@ -1,346 +1,291 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Tabs from "./Tabs";
-import TabsProps from "./types";
 
-type TabsComponent = typeof Tabs;
-
-const meta: Meta<TabsComponent> = {
-  title: "Components/Tabs",
-  component: Tabs,
+const meta: Meta = {
+  title: "Components/Tabs/Tab",
+  component: Tabs.Tab as any,
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
     docs: {
       layout: "padded",
       description: {
-        component:
-          "A flexible tabs component with support for multiple variants and configurations. Tabs provide a clean way to organize and switch between different content sections.",
+        component: `The Tab component represents an individual tab button within a Tabs component. It's a semantic button element with ARIA attributes and support for badges and disabled states.
+
+## Key Features
+
+- **Semantic HTML**: Renders as a proper \`<button>\` with ARIA attributes
+- **Badge Integration**: Display counts, status, or metadata alongside the label
+- **Disabled State**: Support for disabled tabs that prevent interaction
+- **Custom Value**: Separate display text (label) from unique identifier (value)
+- **Type-Safe Props**: Full TypeScript support
+
+## API Overview
+
+Each Tab accepts:
+- \`label\` (required): Display text shown in the tab button
+- \`value\` (optional): Unique identifier for selection (defaults to label)
+- \`badge\` (optional): Badge configuration with label and variant
+- \`disabled\` (optional): Disable this tab
+- \`children\` (optional): Content that becomes a tabpanel (renders below tabs)
+
+## Usage
+
+\`\`\`tsx
+<Tabs variant="pill">
+  <Tabs.Tab label="Home" />
+  <Tabs.Tab value="settings" label="⚙️ Settings" />
+  <Tabs.Tab label="Inbox" badge={{ label: "5", variant: "positive" }} />
+  <Tabs.Tab label="Locked" disabled />
+</Tabs>
+\`\`\``,
       },
     },
   },
   argTypes: {
-    variant: {
-      description: "The visual style of the tabs",
-      options: ["pill", "underline"],
-      control: { type: "radio" },
-      table: {
-        type: { summary: '"pill" | "underline"' },
-        defaultValue: { summary: '"pill"' },
-      },
-    },
-    defaultSelectedTab: {
-      description: "The tab that should be selected by default (uncontrolled)",
+    label: {
+      description:
+        "Display text shown in the tab button. Required. Also used as the tab value/identifier if 'value' is not provided.",
       control: { type: "text" },
       table: {
         type: { summary: "string" },
+        category: "Core Props",
       },
     },
-    selectedTab: {
-      description: "The currently selected tab (controlled)",
+    value: {
+      description:
+        "Unique identifier for this tab. Optional. Defaults to label. Used for controlled components and identifying which tab is active. Should be URL-safe and stable (doesn't change on translations).",
       control: { type: "text" },
       table: {
-        type: { summary: "string" },
+        type: { summary: "string | undefined" },
+        category: "Core Props",
+      },
+    },
+    badge: {
+      description:
+        "Badge configuration to display alongside the label. Optional. Supports 'neutral', 'positive', 'negative' variants for different semantic meanings (counts, alerts, etc).",
+      table: {
+        type: {
+          summary: "BadgeProps | undefined",
+          detail:
+            "{ label: string; variant: 'neutral' | 'positive' | 'negative' }",
+        },
+        category: "UI Props",
+      },
+    },
+    disabled: {
+      description:
+        "Disables this tab. Disabled tabs cannot be clicked, cannot receive focus during keyboard navigation, and are visually de-emphasized. Default: false",
+      control: { type: "boolean" },
+      table: {
+        type: { summary: "boolean | undefined" },
+        defaultValue: { summary: "false" },
+        category: "State Props",
+      },
+    },
+    children: {
+      description:
+        "Optional content that becomes the tab panel. When provided, renders as a <div role='tabpanel'> that is shown/hidden based on tab active state.",
+      table: {
+        type: { summary: "ReactNode" },
+        category: "Content",
       },
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<TabsComponent>;
+type Story = StoryObj;
 
-export const Pill: Story = {
-  args: {
-    variant: "pill",
-    defaultSelectedTab: "Overview",
-  },
-  render: (args: TabsProps) => (
-    <Tabs {...args}>
-      <Tabs.Tab label="Overview">
-        <div style={{ padding: "24px" }}>
-          <h3>Overview Content</h3>
-          <p>
-            This is the overview tab content. You can add any React content
-            here.
-          </p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Details">
-        <div style={{ padding: "24px" }}>
-          <h3>Details Content</h3>
-          <p>Detailed information about the component goes here.</p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Settings">
-        <div style={{ padding: "24px" }}>
-          <h3>Settings Content</h3>
-          <p>Configuration options and settings are displayed here.</p>
-        </div>
-      </Tabs.Tab>
+/**
+ * Basic tab with just a label.
+ * The simplest use case: just a button without badges or custom value.
+ */
+export const BasicLabel: Story = {
+  render: () => (
+    <Tabs defaultValue="Home">
+      <Tabs.Tab label="Home" />
+      <Tabs.Tab label="About" />
+      <Tabs.Tab label="Contact" />
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "The default pill variant provides a modern, rounded appearance with subtle background styling.",
+          "Tab with just a label. Simple button component showing the most basic usage.",
       },
     },
   },
 };
 
-export const Underline: Story = {
-  args: {
-    variant: "underline",
-    defaultSelectedTab: "Tab 1",
-  },
-  render: (args: TabsProps) => (
-    <Tabs {...args}>
-      <Tabs.Tab label="Tab 1">
-        <div style={{ padding: "24px" }}>
-          <h3>Tab 1 Content</h3>
-          <p>The underline variant is minimal and elegant.</p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Tab 2">
-        <div style={{ padding: "24px" }}>
-          <h3>Tab 2 Content</h3>
-          <p>Perfect for documentation sites and clean designs.</p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Tab 3">
-        <div style={{ padding: "24px" }}>
-          <h3>Tab 3 Content</h3>
-          <p>Emphasizes the content over the navigation style.</p>
-        </div>
-      </Tabs.Tab>
+/**
+ * Tab with custom value separate from label.
+ * Useful for i18n, URL routing, and semantic clarity.
+ */
+export const CustomValue: Story = {
+  render: () => (
+    <Tabs defaultValue="home">
+      <Tabs.Tab value="home" label="🏠 Home" />
+      <Tabs.Tab value="settings" label="⚙️ Settings" />
+      <Tabs.Tab value="help" label="❓ Help" />
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "The underline variant features a clean, minimal design with an animated underline indicator.",
+          "Custom value prop: Separates unique identifier (value) from display text (label). Essential for URL routing and i18n where display text changes but identifiers remain stable.",
       },
     },
   },
 };
 
-export const WithBadges: Story = {
-  args: {
-    variant: "pill",
-    defaultSelectedTab: "Messages",
-  },
-  render: (args: TabsProps) => (
-    <Tabs {...args}>
-      <Tabs.Tab label="Messages" badge={{ label: "3", variant: "positive" }}>
-        <div style={{ padding: "24px" }}>
-          <h3>Messages (3 new)</h3>
-          <p>You have 3 new messages waiting for you.</p>
-        </div>
-      </Tabs.Tab>
+/**
+ * Tab with badge showing additional information.
+ * Badges support 'positive', 'neutral', 'negative' variants.
+ */
+export const WithBadge: Story = {
+  render: () => (
+    <Tabs defaultValue="inbox">
       <Tabs.Tab
-        label="Notifications"
+        value="inbox"
+        label="Inbox"
+        badge={{ label: "5", variant: "positive" }}
+      />
+      <Tabs.Tab
+        value="alerts"
+        label="Alerts"
+        badge={{ label: "2", variant: "negative" }}
+      />
+      <Tabs.Tab
+        value="archive"
+        label="Archive"
         badge={{ label: "12", variant: "neutral" }}
-      >
-        <div style={{ padding: "24px" }}>
-          <h3>Notifications (12 new)</h3>
-          <p>You have 12 new notifications.</p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Archive">
-        <div style={{ padding: "24px" }}>
-          <h3>Archived Items</h3>
-          <p>Your archived items are stored here.</p>
-        </div>
-      </Tabs.Tab>
+      />
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "Tabs can display badges to highlight counts, statuses, or other important information.",
+          "Tab with badge: Display counts, status, or other metadata. Variants: 'positive' (green), 'negative' (red), 'neutral' (gray).",
       },
     },
   },
 };
 
-export const WithDisabledTabs: Story = {
-  args: {
-    variant: "pill",
-    defaultSelectedTab: "Available",
-  },
-  render: (args: TabsProps) => (
-    <Tabs {...args}>
-      <Tabs.Tab label="Available">
-        <div style={{ padding: "24px" }}>
-          <h3>Available Content</h3>
-          <p>This tab is accessible and can be selected.</p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Coming Soon" disabled>
-        <div style={{ padding: "24px" }}>
-          <h3>This tab is disabled</h3>
-          <p>Users cannot interact with this tab.</p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Also Available">
-        <div style={{ padding: "24px" }}>
-          <h3>Another Available Tab</h3>
-          <p>This tab is also enabled.</p>
-        </div>
-      </Tabs.Tab>
+/**
+ * Different badge variants showing semantic colors.
+ * positive: Success/new items (green)
+ * negative: Errors/alerts (red)
+ * neutral: Informational counts (gray)
+ */
+export const BadgeVariants: Story = {
+  render: () => (
+    <Tabs defaultValue="good">
+      <Tabs.Tab
+        value="good"
+        label="Success"
+        badge={{ label: "NEW", variant: "positive" }}
+      />
+      <Tabs.Tab
+        value="bad"
+        label="Error"
+        badge={{ label: "3", variant: "negative" }}
+      />
+      <Tabs.Tab
+        value="info"
+        label="Info"
+        badge={{ label: "24", variant: "neutral" }}
+      />
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "Use the disabled state to prevent interaction with tabs that are not yet available or applicable.",
+          "Badge variants show semantic intent: positive (success), negative (error/alert), neutral (information). Use the appropriate variant to communicate meaning.",
       },
     },
   },
 };
 
-export const ManyTabs: Story = {
-  args: {
-    variant: "pill",
-    defaultSelectedTab: "Tab 1",
-  },
-  render: (args: TabsProps) => (
-    <Tabs {...args}>
-      <Tabs.Tab label="Tab 1">
-        <div style={{ padding: "24px" }}>Tab 1 content</div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Tab 2">
-        <div style={{ padding: "24px" }}>Tab 2 content</div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Tab 3">
-        <div style={{ padding: "24px" }}>Tab 3 content</div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Tab 4">
-        <div style={{ padding: "24px" }}>Tab 4 content</div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Tab 5">
-        <div style={{ padding: "24px" }}>Tab 5 content</div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Tab 6">
-        <div style={{ padding: "24px" }}>Tab 6 content</div>
-      </Tabs.Tab>
+/**
+ * Disabled tab: Cannot be clicked, skipped in keyboard nav.
+ * Visual indicators show the disabled state.
+ */
+export const DisabledTab: Story = {
+  render: () => (
+    <Tabs defaultValue="available">
+      <Tabs.Tab value="available" label="Available" />
+      <Tabs.Tab value="coming" label="Coming Soon" disabled />
+      <Tabs.Tab value="available2" label="Also Available" />
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "The tabs component handles multiple tabs gracefully and can scale to accommodate many options.",
+          "Disabled tab: Cannot be clicked, skipped in keyboard navigation, visually de-emphasized. Use for locked features or coming-soon sections.",
       },
     },
   },
 };
 
-export const ComplexContent: Story = {
-  args: {
-    variant: "underline",
-    defaultSelectedTab: "Profile",
-  },
-  render: (args: TabsProps) => (
-    <Tabs {...args}>
-      <Tabs.Tab label="Profile" badge={{ label: "1", variant: "negative" }}>
-        <div style={{ padding: "24px" }}>
-          <h3>User Profile</h3>
-          <p style={{ marginBottom: "12px" }}>
-            Display complex content with multiple elements.
-          </p>
-          <ul style={{ paddingLeft: "20px" }}>
-            <li>Full Name</li>
-            <li>Email Address</li>
-            <li>Profile Picture</li>
-            <li>Bio</li>
-          </ul>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Preferences">
-        <div style={{ padding: "24px" }}>
-          <h3>User Preferences</h3>
-          <form
-            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
-          >
-            <label>
-              <input type="checkbox" defaultChecked /> Email notifications
-            </label>
-            <label>
-              <input type="checkbox" defaultChecked /> Push notifications
-            </label>
-            <label>
-              <input type="checkbox" /> SMS alerts
-            </label>
-          </form>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Activity">
-        <div style={{ padding: "24px" }}>
-          <h3>Recent Activity</h3>
-          <ul style={{ paddingLeft: "20px", lineHeight: "1.8" }}>
-            <li>Logged in on Sep 24, 2026</li>
-            <li>Updated profile on Sep 23, 2026</li>
-            <li>Changed password on Sep 20, 2026</li>
-            <li>Added new email on Sep 15, 2026</li>
-          </ul>
-        </div>
-      </Tabs.Tab>
+/**
+ * Tab with icon-only label.
+ * Useful for compact UIs or icon-based navigation.
+ */
+export const IconLabel: Story = {
+  render: () => (
+    <Tabs defaultValue="home">
+      <Tabs.Tab value="home" label="🏠" />
+      <Tabs.Tab value="search" label="🔍" />
+      <Tabs.Tab value="settings" label="⚙️" />
+      <Tabs.Tab value="user" label="👤" />
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "Tabs can contain complex, interactive content including forms, lists, and nested components.",
+          "Icon-only labels: Compact navigation using emoji or Unicode symbols. Great for mobile or minimalist designs.",
       },
     },
   },
 };
 
-export const Interactive: Story = {
-  args: {
-    variant: "pill",
-    defaultSelectedTab: "Home",
-  },
-  render: (args: TabsProps) => (
-    <Tabs {...args}>
-      <Tabs.Tab label="Home">
-        <div style={{ padding: "24px" }}>
-          <h3>Welcome Home</h3>
-          <p>
-            This is the home tab. Try clicking on other tabs to switch content.
-          </p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Examples" badge={{ label: "NEW", variant: "positive" }}>
-        <div style={{ padding: "24px" }}>
-          <h3>Examples & Use Cases</h3>
-          <p>Explore different ways to use this component effectively.</p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Documentation">
-        <div style={{ padding: "24px" }}>
-          <h3>API Documentation</h3>
-          <p>
-            Comprehensive documentation for all tabs component props and
-            methods.
-          </p>
-        </div>
-      </Tabs.Tab>
-      <Tabs.Tab label="Support" disabled>
-        <div style={{ padding: "24px" }}>Support tab</div>
-      </Tabs.Tab>
+/**
+ * All tab props combined together.
+ * Shows custom value, emoji label, badge, and disabled state.
+ */
+export const AllProps: Story = {
+  render: () => (
+    <Tabs defaultValue="dashboard">
+      <Tabs.Tab
+        value="dashboard"
+        label="📊 Dashboard"
+        badge={{ label: "3", variant: "neutral" }}
+      />
+      <Tabs.Tab
+        value="analytics"
+        label="📈 Analytics"
+        badge={{ label: "NEW", variant: "positive" }}
+      />
+      <Tabs.Tab
+        value="reports"
+        label="Reports"
+        badge={{ label: "2", variant: "negative" }}
+      />
+      <Tabs.Tab value="archived" label="Archive" disabled />
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "An interactive example combining pills variant, badges, and disabled states. Use the controls to experiment with different configurations.",
+          "All props combined: custom values, emoji labels, badges with variants, and disabled state. Shows the full API of Tabs.Tab.",
       },
     },
   },

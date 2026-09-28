@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+$breakpoint-mobile: 768px;
+@mixin media-desktop {
+  @media (min-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     PRIMITIVE TOKENS (Base design decisions)
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Colors - Primitive */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #f1f1f7;
+  --color-gray-300: #d3d3dc;
+  --color-gray-400: #c4c5cf;
+  --color-primary-600: #585d71;
+  --color-primary-700: #343a4e;
+  --color-primary-900: #1b2134;
+
+  --color-success: #b1ffc7;
+  --color-error: #ffbfb1;
+
+  --color-white: #fff;
+  --color-black: #222;
+
+  /* Typography - Primitive */
+  --font-family-body: "Inter", sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --line-height-tight: 150%;
+
+  /* Spacing - Primitive (8px base) */
+  --spacing-0: 0;
+  --spacing-4xs: 2px;
+  --spacing-3xs: 4px;
+  --spacing-2xs: 8px;
+  --spacing-xs: 12px;
+  --spacing-sm: 16px;
+  --spacing-md: 20px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Border Radius - Primitive */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-full: 100px;
+
+  /* Component Heights - Primitive */
+  --height-sm: 42px;
+  --height-md: 50px;
+
+  /* ═══════════════════════════════════════════════════════════════
+     SEMANTIC TOKENS (How tokens are used in components)
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Background Colors */
+  --bg-default: var(--color-white);
+  --bg-secondary: var(--color-gray-50);
+  --bg-neutral: var(--color-gray-400);
+  --bg-primary-light: var(--color-primary-600);
+  --bg-primary-regular: var(--color-primary-700);
+  --bg-primary-strong: var(--color-primary-900);
+
+  /* Text Colors */
+  --text-primary: var(--color-primary-900);
+  --text-on-primary: var(--color-white);
+  --text-disabled: var(--color-gray-400);
+
+  /* Border & Outline Colors */
+  --border-default: var(--color-gray-300);
+  --border-hover: var(--color-gray-400);
+  --border-active: var(--color-gray-900);
+  --border-focus: var(--color-primary-900);
+  --color-outline: var(--color-gray-300);
+  --color-outline-hover: var(--color-gray-400);
+
+  /* Interactive State Colors */
+  --state-hover: var(--color-gray-100);
+  --state-active: var(--color-gray-200);
+  --state-disabled: var(--color-gray-50);
+
+  /* Semantic Colors */
+  --color-success-bg: var(--color-success);
+  --color-error-bg: var(--color-error);
+
+  /* ═══════════════════════════════════════════════════════════════
+     COMPONENT-SPECIFIC TOKENS (Optional: for complex components)
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Tabs Component */
+  --tab-bg-default: var(--bg-default);
+  --tab-bg-hover: var(--state-hover);
+  --tab-bg-active: var(--bg-secondary);
+  --tab-bg-pill-selected: var(--bg-primary-strong);
+  --tab-bg-pill-selected-hover: var(--bg-primary-regular);
+  --tab-bg-pill-selected-active: var(--bg-primary-light);
+  --tab-focus-outline-color: var(--border-focus);
+  --tab-text-default: var(--text-primary);
+  --tab-text-selected: var(--text-on-primary);
+  --tab-border-default: var(--border-default);
+  --tab-border-active: var(--border-active);
+  --tab-height-mobile: var(--height-sm);
+  --tab-height-desktop: var(--height-md);
+  --tab-padding-inline-mobile: var(--spacing-xs);
+  --tab-padding-inline-desktop: var(--spacing-sm);
+  --tab-gap: var(--spacing-md);
+  --tab-border-radius: var(--border-radius-full);
+  --tab-underline-height: 3px;
+  --tab-underline-color: var(--bg-neutral);
+  --tab-underline-color-selected: var(--bg-primary-strong);
+  --tabs-pill-gap-mobile: var(--spacing-2xs);
+  --tabs-pill-gap-desktop: var(--spacing-xs);
+  --tabs-underline-gap-mobile: var(--spacing-lg);
+  --tabs-underline-gap-desktop: var(--spacing-xl);
+  --tabs-container-padding: var(--spacing-3xs);
+  --tabs-wrapper-gap: var(--spacing-xl);
+
+  /* Badge Component */
+  --badge-text-color: var(--text-primary);
+  --badge-padding-block-mobile: var(--spacing-4xs);
+  --badge-padding-block-desktop: var(--spacing-3xs);
+  --badge-padding-inline-mobile: var(--spacing-3xs);
+  --badge-padding-inline-desktop: var(--spacing-2xs);
+  --badge-border-radius-mobile: var(--border-radius-md);
+  --badge-border-radius-desktop: var(--border-radius-lg);
+  --badge-font-weight: var(--font-weight-bold);
+  --badge-bg-neutral: var(--color-gray-200);
+  --badge-bg-success: var(--color-success);
+  --badge-bg-error: var(--color-error);
+}
