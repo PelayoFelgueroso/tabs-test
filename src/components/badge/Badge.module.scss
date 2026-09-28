@@ -2,15 +2,15 @@
 
 .badge {
   font-family: var(--font-family-body);
-  font-size: var(--font-size-sm);
+  font-size: var(--badge-font-size-mobile);
   font-weight: var(--badge-font-weight);
-  line-height: var(--line-height-tight);
+  line-height: var(--badge-line-height);
   padding: var(--badge-padding-block-mobile) var(--badge-padding-inline-mobile);
   border-radius: var(--badge-border-radius-mobile);
   color: var(--badge-text-color);
 
   @include media-desktop {
-    font-size: var(--font-size-md);
+    font-size: var(--badge-font-size-mobile);
     padding: var(--badge-padding-block-desktop)
       var(--badge-padding-inline-desktop);
     border-radius: var(--badge-border-radius-desktop);
