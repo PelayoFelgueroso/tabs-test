@@ -9,7 +9,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1" />
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.getByRole("tablist")).toBeInTheDocument();
@@ -21,14 +21,13 @@ describe("Tabs component tests", () => {
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.getByRole("tab", { name: "Tab 1" })).toBeInTheDocument();
       expect(screen.getByRole("tab", { name: "Tab 2" })).toBeInTheDocument();
       expect(screen.getByRole("tab", { name: "Tab 3" })).toBeInTheDocument();
     });
-
   });
 
   describe("Variants", () => {
@@ -36,7 +35,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1">Content</Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       const tablist = screen.getByRole("tablist");
@@ -48,7 +47,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs variant="underline">
           <Tabs.Tab label="Tab 1">Content</Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       const tablist = screen.getByRole("tablist");
@@ -63,7 +62,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -75,7 +74,7 @@ describe("Tabs component tests", () => {
         <Tabs defaultValue="tab-2">
           <Tabs.Tab value="tab-1" label="Tab 1" />
           <Tabs.Tab value="tab-2" label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab2 = screen.getByRole("tab", { name: "Tab 2" });
@@ -87,7 +86,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -101,7 +100,6 @@ describe("Tabs component tests", () => {
       expect(tab1).toHaveAttribute("aria-selected", "false");
       expect(tab2).toHaveAttribute("aria-selected", "true");
     });
-
   });
 
   describe("Tab Values", () => {
@@ -109,7 +107,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab = screen.getByRole("tab", { name: "Tab 1" });
@@ -120,7 +118,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab value="custom-tab" label="Tab 1" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab = screen.getByRole("tab", { name: "Tab 1" });
@@ -132,7 +130,7 @@ describe("Tabs component tests", () => {
         <Tabs defaultValue="tab-2">
           <Tabs.Tab value="tab-1" label="Tab 1" />
           <Tabs.Tab value="tab-2" label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab2 = screen.getByRole("tab", { name: "Tab 2" });
@@ -144,8 +142,11 @@ describe("Tabs component tests", () => {
     it("renders badge in tab when provided", () => {
       render(
         <Tabs>
-          <Tabs.Tab label="Tab 1" badge={{ label: "New", variant: "positive" }} />
-        </Tabs>
+          <Tabs.Tab
+            label="Tab 1"
+            badge={{ label: "New", variant: "positive" }}
+          />
+        </Tabs>,
       );
 
       expect(screen.getByText("New")).toBeInTheDocument();
@@ -155,7 +156,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1" />
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.queryByText("New")).not.toBeInTheDocument();
@@ -164,8 +165,11 @@ describe("Tabs component tests", () => {
     it("renders badge with correct variant", () => {
       render(
         <Tabs>
-          <Tabs.Tab label="Tab 1" badge={{ label: "Warning", variant: "negative" }} />
-        </Tabs>
+          <Tabs.Tab
+            label="Tab 1"
+            badge={{ label: "Warning", variant: "negative" }}
+          />
+        </Tabs>,
       );
 
       const badge = screen.getByText("Warning");
@@ -178,7 +182,7 @@ describe("Tabs component tests", () => {
       const { container } = render(
         <Tabs variant="underline">
           <Tabs.Tab label="Tab 1" />
-        </Tabs>
+        </Tabs>,
       );
 
       const lineElements = container.querySelectorAll("[class*='line']");
@@ -190,7 +194,7 @@ describe("Tabs component tests", () => {
         <Tabs variant="underline" defaultValue="tab-2">
           <Tabs.Tab value="tab-1" label="Tab 1" />
           <Tabs.Tab value="tab-2" label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const lines = container.querySelectorAll("[class*='line']");
@@ -204,7 +208,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -222,7 +226,7 @@ describe("Tabs component tests", () => {
         <Tabs onChange={handleChange}>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab2 = screen.getByRole("tab", { name: "Tab 2" });
@@ -238,7 +242,7 @@ describe("Tabs component tests", () => {
         <Tabs onChange={handleChange}>
           <Tabs.Tab value="tab-1" label="Tab 1" />
           <Tabs.Tab value="tab-2" label="Tab 2" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab2 = screen.getByRole("tab", { name: "Tab 2" });
@@ -253,7 +257,7 @@ describe("Tabs component tests", () => {
           <Tabs>
             <Tabs.Tab label="Tab 1" />
             <Tabs.Tab label="Tab 2" />
-          </Tabs>
+          </Tabs>,
         );
 
         const tab2 = screen.getByRole("tab", { name: "Tab 2" });
@@ -275,7 +279,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1">Content 1</Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.getByRole("tabpanel")).toBeInTheDocument();
@@ -285,7 +289,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1" />
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.queryByRole("tabpanel")).not.toBeInTheDocument();
@@ -296,7 +300,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1">Content for Tab 1</Tabs.Tab>
           <Tabs.Tab label="Tab 2">Content for Tab 2</Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.getByText("Content for Tab 1")).toBeInTheDocument();
@@ -312,7 +316,7 @@ describe("Tabs component tests", () => {
           <Tabs.Tab value="tab-2" label="Tab 2">
             Content 2
           </Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.getByText("Content 2")).toBeInTheDocument();
@@ -324,7 +328,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1">Content 1</Tabs.Tab>
           <Tabs.Tab label="Tab 2">Content 2</Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.getByText("Content 1")).toBeInTheDocument();
@@ -343,7 +347,7 @@ describe("Tabs component tests", () => {
           <Tabs.Tab value="custom-tab" label="Tab 1">
             Content
           </Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       const tab = screen.getByRole("tab", { name: "Tab 1" });
@@ -365,12 +369,14 @@ describe("Tabs component tests", () => {
               <button>Action Button</button>
             </div>
           </Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       expect(screen.getByText("Title")).toBeInTheDocument();
       expect(screen.getByText("Complex content")).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Action Button" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Action Button" }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -380,7 +386,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" disabled />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -397,7 +403,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" disabled />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab2 = screen.getByRole("tab", { name: "Tab 2" });
@@ -409,7 +415,7 @@ describe("Tabs component tests", () => {
         <Tabs>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" disabled />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -420,13 +426,13 @@ describe("Tabs component tests", () => {
   });
 
   describe("Keyboard Navigation", () => {
-    it("ArrowRight moves focus to next tab (roving tabindex)", () => {
+    it("ArrowRight moves focus to next tab", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -446,9 +452,9 @@ describe("Tabs component tests", () => {
       render(
         <Tabs defaultValue="Tab 2">
           <Tabs.Tab label="Tab 1" />
-          <Tabs.Tab value="Tab 2" label="Tab 2" />
+          <Tabs.Tab label="Tab 2" />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -464,47 +470,51 @@ describe("Tabs component tests", () => {
       expect(tab1).toHaveAttribute("aria-selected", "false");
     });
 
-    it("Home moves focus to first tab (roving tabindex)", () => {
+    it("Home moves focus to first tab", () => {
       render(
-        <Tabs defaultValue="Tab 2">
-          <Tabs.Tab label="Tab 1" />
-          <Tabs.Tab value="Tab 2" label="Tab 2" />
-          <Tabs.Tab label="Tab 3" />
-        </Tabs>
-      );
-
-      const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-      const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-      expect(tab2).toHaveAttribute("aria-selected", "true");
-      tab2.focus();
-
-      fireEvent.keyDown(tab2, { key: "Home" });
-
-      expect(tab1).toHaveFocus();
-      expect(tab2).toHaveAttribute("aria-selected", "true");
-      expect(tab1).toHaveAttribute("aria-selected", "false");
-    });
-
-    it("End moves focus to last tab (roving tabindex)", () => {
-      render(
-        <Tabs>
+        <Tabs defaultValue="Tab 3">
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+          <Tabs.Tab label="Tab4" />
+          <Tabs.Tab label="Tab 5" />
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
       const tab3 = screen.getByRole("tab", { name: "Tab 3" });
 
-      expect(tab1).toHaveAttribute("aria-selected", "true");
-      tab1.focus();
+      expect(tab3).toHaveAttribute("aria-selected", "true");
+      tab3.focus();
 
-      fireEvent.keyDown(tab1, { key: "End" });
+      fireEvent.keyDown(tab3, { key: "Home" });
+
+      expect(tab1).toHaveFocus();
+      expect(tab3).toHaveAttribute("aria-selected", "true");
+      expect(tab1).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("End moves focus to last tab (roving tabindex)", () => {
+      render(
+        <Tabs defaultValue="Tab 3">
+          <Tabs.Tab label="Tab 1" />
+          <Tabs.Tab label="Tab 2" />
+          <Tabs.Tab label="Tab 3" />
+          <Tabs.Tab label="Tab4" />
+          <Tabs.Tab label="Tab 5" />
+        </Tabs>,
+      );
+
+      const tab5 = screen.getByRole("tab", { name: "Tab 5" });
+      const tab3 = screen.getByRole("tab", { name: "Tab 3" });
+
+      expect(tab5).toHaveAttribute("aria-selected", "true");
+      tab5.focus();
+
+      fireEvent.keyDown(tab5, { key: "End" });
 
       expect(tab3).toHaveFocus();
-      expect(tab1).toHaveAttribute("aria-selected", "true");
+      expect(tab5).toHaveAttribute("aria-selected", "true");
       expect(tab3).toHaveAttribute("aria-selected", "false");
     });
 
@@ -514,7 +524,7 @@ describe("Tabs component tests", () => {
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" disabled />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -536,7 +546,7 @@ describe("Tabs component tests", () => {
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
           <Tabs.Tab value="Tab 3" label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -558,7 +568,7 @@ describe("Tabs component tests", () => {
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -580,7 +590,7 @@ describe("Tabs component tests", () => {
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -601,7 +611,7 @@ describe("Tabs component tests", () => {
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" />
           <Tabs.Tab label="Tab 3" />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -621,7 +631,7 @@ describe("Tabs component tests", () => {
         <Tabs defaultValue="Tab 1">
           <Tabs.Tab label="Tab 1" />
           <Tabs.Tab label="Tab 2" disabled />
-        </Tabs>
+        </Tabs>,
       );
 
       const tab1 = screen.getByRole("tab", { name: "Tab 1" });
@@ -642,7 +652,7 @@ describe("Tabs component tests", () => {
       render(
         <Tabs>
           <Tabs.Tab label="Only Tab">Content</Tabs.Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       const tab = screen.getByRole("tab", { name: "Only Tab" });
